@@ -1,5 +1,7 @@
+import random
 from decimal import Decimal
 
+from django.core.mail import send_mail
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
 from workoutApp.models import Workout, Goals, Exercise, CustomUser, WorkoutType
@@ -9,6 +11,22 @@ class CreateUserSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = CustomUser
         fields = ['first_name', 'last_name', 'username', 'age', 'gender', 'weight', 'height', 'email', 'password']
+
+
+    def create(self, validated_data):
+        user = CustomUser.objects.create_user(**validated_data)
+        otp = random.randint(100000, 999999)
+        user.otp = otp
+        user.save()
+
+        send_mail(
+            'Your ONE TIME PASSWORD',
+            f'Your OTP CODE is {otp}. NB: this code expires in 15minutes',
+            'workoutFitapp@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
+        return user
 
 
 class WorkoutTypeSerializer(serializers.ModelSerializer):

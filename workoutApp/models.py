@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
-    email = models.EmailField(unique=True)
+    otp = models.EmailField(unique=True, blank=True)
 
     def __str__(self):
         return self.username
