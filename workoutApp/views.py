@@ -31,7 +31,7 @@ def fitness_data(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 
-def total_calories_burn_in_a_week(self, calories_burn):
+def total_calories_burn_in_a_week(self, request):
         workout_type = 'skiing'
         api_url = 'https://api.api-ninjas.com/v1/caloriesburned?activity={}'.format(workout_type)
         headers = {
@@ -43,6 +43,20 @@ def total_calories_burn_in_a_week(self, calories_burn):
                 print(response.text)
         except requests.exceptions.RequestException as e:
             return JsonResponse({'error': str(e)}, status=500)
+
+
+
+def nutrition_content_data(request):
+    query = '1lb plantain chips and fries'
+    api_url = 'https://api.api-ninjas.com/v1/nutrition?query={}'.format(query)
+    headers = {'X-Api-Key':
+                   os.getenv('API_KEY')}
+    try:
+        response = requests.get(api_url, headers=headers)
+        if response.status_code == requests.codes.ok:
+            print(response.text)
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 
