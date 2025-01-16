@@ -84,6 +84,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'workAndFit.wsgi.application'
 AUTH_USER_MODEL = 'workoutApp.CustomUser'
+STRAVA_AUTH_URL = "https://www.strava.com/oauth/authorize"
+STRAVA_REDIRECT_URI = 'http://localhost:8000/strava/callback'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -151,6 +153,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+ALLOWED_HOSTS = [
+    '9e5d-102-89-47-205.ngrok-free.app',
+]
 
 
 SIMPLE_JWT = {
