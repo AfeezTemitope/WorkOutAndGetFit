@@ -11,6 +11,8 @@ from workoutApp.models import CustomUser
 from workoutApp.serializers import CreateUserSerializer
 
 load_dotenv()
+
+
 # Create your views here.
 
 
@@ -30,7 +32,6 @@ class OTPVerification(APIView):
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
             return Response({'detail': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
-
 
         if user.otp == int(otp):
             user.is_active = True
@@ -68,7 +69,6 @@ def exercise_types_and_instructions(exercise_type):
         return Response({'detail': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
 def fitness_data(request):
     url = 'https://api.api-ninjas.com/v1/nutrition?query=1lb brisket and fries'
     headers = {
@@ -81,5 +81,3 @@ def fitness_data(request):
         return JsonResponse(response.json(), safe=False)
     except requests.exceptions.RequestException as e:
         return JsonResponse({'error': str(e)}, status=500)
-
-
