@@ -40,7 +40,7 @@ class OTPVerification(APIView):
             return Response({'detail': 'invalid OTP'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-def total_calories_burn_in_a_week(self, calories_burn):
+def total_calories_burn_in_a_week(calories_burn):
     activity = 'skiing'
     api_url = 'https://api.api-ninjas.com/v1/caloriesburned?activity={}'.format(activity)
     headers = {
