@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from workoutApp.views import CustomUserViewSet, fitness_data, OTPVerification
+from workoutApp.views import CustomUserViewSet, fitness_data, OTPVerification, total_calories_burn_in_a_week, \
+    exercise_types_and_instructions
 from rest_framework_simplejwt import views as jwt_views
 from workoutApp.strava import *
 
@@ -19,4 +20,6 @@ urlpatterns = [
     path('strava/callback/', strava_callback, name='strava_callback'),
     path('strava/activities/', fetch_strava_activities, name='strava_activities'),
 
+    path('exercise/', exercise_types_and_instructions, name='exercise_and_instructions'),
+    path('workout/', total_calories_burn_in_a_week, name='calories_burn'),
 ]
