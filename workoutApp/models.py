@@ -17,8 +17,8 @@ class CustomUser(AbstractUser):
     otp = models.EmailField(unique=True, blank=True)
 
     def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(args, kwargs)
-        self.name = None
+        super().__init__(*args, **kwargs)
+
 
     def __str__(self):
         return self.username
@@ -75,7 +75,7 @@ class Workout(models.Model):
     workout_date = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.user.name} - {self.workout_type.name} ({self.workout_date})'
+        return f'{self.user} - {self.workout_type.name} ({self.workout_date})'
 
 
 # Represents the user's fitness goals

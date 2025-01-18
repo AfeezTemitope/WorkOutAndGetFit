@@ -14,6 +14,9 @@ import os
 from datetime import timedelta
 
 from pathlib import Path
+
+import dj_database_url
+from django.conf.urls import static
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -107,6 +110,7 @@ DATABASES = {
         'PASSWORD': os.getenv('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '3306',
+        'DATABASE_URL': dj_database_url.parse(os.getenv('DATABASE_URL'), conn_max_age=600),
     }
 }
 
@@ -146,6 +150,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
