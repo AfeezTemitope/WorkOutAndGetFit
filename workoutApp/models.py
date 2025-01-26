@@ -4,6 +4,8 @@ from typing import Any
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from paystacks.customers import Customer
+
 
 class CustomUser(AbstractUser):
     age = models.IntegerField()
@@ -86,3 +88,13 @@ class Goals(models.Model):
 
     def __str__(self):
         return f"{self.user.name}'s goal: {self.description}"
+
+
+# Represents user's access levels in the application
+class AbstractUser(Customer):
+    MEMBERSHIP_CHOICES = [
+        ('P','Premium'),
+        ('G', 'Gold'),
+        ('B', 'Basic')
+    ]
+    membership = models.CharField(max_length=10, choices=MEMBERSHIP_CHOICES)
