@@ -174,7 +174,6 @@ DJOSER = {
     'LOGIN_FIELD': 'username',
     'SERIALIZERS': {
         'user_create': 'workoutApp.serializers.CreateUserSerializer',
-
     }
 }
 

@@ -12,7 +12,6 @@ class CreateUserSerializer(UserCreateSerializer):
         model = CustomUser
         fields = ['first_name', 'last_name', 'username', 'age', 'gender', 'weight', 'height', 'email', 'password']
 
-
     def create(self, validated_data):
         user = CustomUser.objects.create_user(**validated_data)
         otp = random.randint(100000, 999999)
@@ -57,8 +56,3 @@ class ExercisesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
         fields = '__all__'
-
-
-
-
-
