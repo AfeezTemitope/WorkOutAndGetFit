@@ -1,0 +1,6 @@
+.env
+workAndFit/__pycache__
+settings.cpython-313.pyc
+WorkOutAndGet/Pipfile/
+Pipfile.lock/
+
