@@ -60,5 +60,3 @@ class ExercisesSerializer(serializers.ModelSerializer):
 
 
 
-
-

@@ -1,7 +1,10 @@
 import random
+from typing import Any
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from paystacks.customers import Customer
 
 
 class CustomUser(AbstractUser):
@@ -14,6 +17,10 @@ class CustomUser(AbstractUser):
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     otp = models.EmailField(unique=True, blank=True)
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+
 
     def __str__(self):
         return self.username
@@ -70,7 +77,7 @@ class Workout(models.Model):
     workout_date = models.DateTimeField()
 
     def __str__(self):
-        return f'{self.user.name} - {self.workout_type.name} ({self.workout_date})'
+        return f'{self.user} - {self.workout_type.name} ({self.workout_date})'
 
 
 # Represents the user's fitness goals
@@ -81,3 +88,13 @@ class Goals(models.Model):
 
     def __str__(self):
         return f"{self.user.name}'s goal: {self.description}"
+
+
+# Represents user's access levels in the application
+class AbstractUser(Customer):
+    MEMBERSHIP_CHOICES = [
+        ('P','Premium'),
+        ('G', 'Gold'),
+        ('B', 'Basic')
+    ]
+    membership = models.CharField(max_length=10, choices=MEMBERSHIP_CHOICES)

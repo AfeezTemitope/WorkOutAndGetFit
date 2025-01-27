@@ -62,7 +62,7 @@ def exercise_types_and_instructions(exercise_type):
         'X-api-key': os.getenv('API_KEY')
     }
     try:
-        response = requests.get(api_url, headers={'X-Api-Key': 'IOEZmulQuzjihSanqvszbA==NuPDdHdIYyvthz5f'})
+        response = requests.get(api_url, headers=headers)
         response.raise_for_status()
         print(response.text)
     except requests.exceptions.RequestException as e:
