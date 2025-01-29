@@ -1,17 +1,17 @@
 from rest_framework import status
-
 from paystacks import utils
 from paystacks.errors import InvalidDataError
 
 
 class Transaction:
     def getall(self, start_date=None, end_date=None):
-        """Get all your transactions
+        """
+            Get all your transactions
+            args:
+            pagination --
+            from: start_date
+            to: end_date
 
-        args:
-        pagination --
-        from: start_date
-        to: end_date
         """
 
         url = "https://api.paystack.co/v3/transactions"
@@ -31,16 +31,14 @@ class Transaction:
         url = self._url("/transactions/{}".format(transaction_id))
         return self._handle_request("GET", url)
 
-
     def totals(self):
         """Gets transaction totals
         """
         url = self._url("/transactions/totals")
         return self._handle_request("GET", url)
 
-
     def initialize(
-        self, email, amount, plan=None, reference=None, channel=None, metadata=None,
+            self, email, amount, plan=None, reference=None, channel=None, metadata=None,
     ):
         """Initializes transaction and returns the response
 
@@ -57,8 +55,6 @@ class Transaction:
         if not email:
             raise InvalidDataError("Customer's email address is required for initialization")
 
-
-
         url = self._url("/transactions/initialize")
         payload = {
             "email": email,
@@ -73,7 +69,6 @@ class Transaction:
             payload.update({"reference": reference})
         if metadata:
             payload = payload.update({"metadata": {"custom_fields": metadata}})
-
 
     def charge(self, email, auth_code, amount, reference=None, metadata=None):
         """
@@ -119,7 +114,6 @@ class Transaction:
         if metadata:
             payload.update({"metadata": {"custom_fields": metadata}})
 
-
     def verify(self, reference):
         """
         Verifies a transaction using the provided reference number
@@ -133,15 +127,13 @@ class Transaction:
 
         return self._handle_request("GET", url)
 
-
     def fetch_transfer_banks(self):
-       """
+        """
        Fetch transfer banks
        """
 
-       url = self._url("/bank")
-       return self._handle_request("GET", url)
-
+        url = self._url("/bank")
+        return self._handle_request("GET", url)
 
     def create_transfer_customer(self, bank_code, account_number, account_name):
         """
@@ -158,12 +150,7 @@ class Transaction:
         }
         return self._handle_request("POST", url, data=payload)
 
-
     def transfer(self, recipient_code, amount, reason, reference=None):
         """
         Initiates transfer to a customer
         """
-
-
-
-
