@@ -104,13 +104,12 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'light_and_dark',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'neondb',
+        'USER': 'neondb_owner',
         'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'DATABASE_URL': dj_database_url.parse(os.getenv('DATABASE_URL'), conn_max_age=600),
+        'HOST': 'ep-black-snowflake-a45zqo25-pooler.us-east-1.aws.neon.tech',
+        'PORT': 5432,
     }
 }
 
