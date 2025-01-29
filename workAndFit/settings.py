@@ -53,7 +53,6 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -160,8 +159,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = [
-    '9e5d-102-89-47-205.ngrok-free.app',
+    'https://work-out-and-get-fit.vercel.app',
     '127.0.0.1'
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8081',  # React Native app's URL
+    'http://127.0.0.1:8000',  # Backend URL
+    'https://work-out-and-get-fit.vercel.app',  #Vercel URL
 ]
 
 
