@@ -2,10 +2,7 @@
   "builds": [
     {
       "src": "manage.py",
-      "use": "@vercel/python",
-      "config": {
-        "maxDuration": 10
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [
