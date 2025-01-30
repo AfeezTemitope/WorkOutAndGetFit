@@ -175,14 +175,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = [
 
     '127.0.0.1',
-    'lightanddark.up.railway.app',
+    'workoutandgetfit-production.up.railway.app',
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://lightanddark.up.railway.app'
+    'https://workoutandgetfit-production.up.railway.app'
 ]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8081',  # React Native app's URL
-    'http://127.0.0.1:8000',  # Backend URL
+    'http://127.0.0.1:8000',
+    'https://workoutandgetfit-production.up.railway.app',# Backend URL
 
 ]
 
