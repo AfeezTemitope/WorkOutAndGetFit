@@ -30,11 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-if ENVIRONMENT == 'development':
-    DEBUG = True
-else:
-    DEBUG = False
-
+# if ENVIRONMENT == 'development':
+#     DEBUG = True
+# else:
+#     DEBUG = False
+DEBUG = True
 # ALLOWED_HOSTS = []
 
 
@@ -65,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'workAndFit.urls'
@@ -159,7 +160,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -171,7 +175,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = [
 
     '127.0.0.1',
-    'https://lightanddark.up.railway.app',
+    'lightanddark.up.railway.app',
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://lightanddark.up.railway.app'
