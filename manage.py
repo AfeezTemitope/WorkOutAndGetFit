@@ -11,7 +11,8 @@ def main():
 
     try:
         # Expose the WSGI application to Vercel
-        application = get_wsgi_application()  # This is what Vercel will look for
+        application = get_wsgi_application()
+        app = application   # This is what Vercel will look for
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
