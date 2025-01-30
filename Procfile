@@ -1,0 +1,1 @@
+web: gunicorn workAndFit.wsgi --log-file -

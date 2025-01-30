@@ -12,17 +12,17 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 import os
 from datetime import timedelta
-
+import urllib.parse as urlparse
 from pathlib import Path
-
+# import ENVIRONMENT
 import dj_database_url
 from django.conf.urls import static
 from dotenv import load_dotenv
 
 load_dotenv()
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -30,8 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
+# if ENVIRONMENT == 'development':
+#     DEBUG = True
+# else:
+#     DEBUG = False
 DEBUG = True
-
 # ALLOWED_HOSTS = []
 
 
@@ -53,7 +56,6 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'workAndFit.urls'
@@ -89,7 +92,6 @@ AUTH_USER_MODEL = 'workoutApp.CustomUser'
 STRAVA_AUTH_URL = "https://www.strava.com/oauth/authorize"
 STRAVA_REDIRECT_URI = 'http://localhost:8000/strava/callback'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -97,22 +99,34 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'hafeezco75@gmail.com'
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASE_URL = os.getenv('DATABASE_URL')
+# url = urlparse.urlparse(DATABASE_URL)
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': url.path[1:],
+#         'USER': url.username,
+#         'PASSWORD': url.password,
+#         'HOST': url.hostname,
+#         'PORT': url.port or 5432,
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'neondb',
-        'USER': 'neondb_owner',
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': 'ep-black-snowflake-a45zqo25-pooler.us-east-1.aws.neon.tech',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+POSTGRES_LOCALLY = False
 
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -131,7 +145,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -143,32 +156,36 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = [
-    'https://work-out-and-get-fit.vercel.app',
-    '127.0.0.1'
-]
 
+    '127.0.0.1',
+    'workoutandgetfit-production.up.railway.app',
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://workoutandgetfit-production.up.railway.app'
+]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8081',  # React Native app's URL
-    'http://127.0.0.1:8000',  # Backend URL
-    'https://work-out-and-get-fit.vercel.app',  #Vercel URL
-]
+    'http://127.0.0.1:8000',
+    'https://workoutandgetfit-production.up.railway.app',# Backend URL
 
+]
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
@@ -176,7 +193,6 @@ SIMPLE_JWT = {
     'UPDATE_LAST_LOGIN': True,
     'BLACKLIST_AFTER_ROTATION': True,
 }
-
 
 DJOSER = {
     'ACTIVATION_URL': 'auth/activate/{uid}/{token}/',
