@@ -105,7 +105,7 @@ class Consultants:
     otp = models.EmailField(unique=True, blank=True)
     phone_number = models.IntegerField(max_length=11, unique=True)
     license_number = models.CharField(max_length=15)
-    field_specialised = models.CharField(max_length=10, blank=True)
+    field_specialisation = models.CharField(max_length=10, blank=True)
     health_institution = models.CharField(max_length=20, blank=True)
 
     def __init__(self, *args: Any, **kwargs: Any):

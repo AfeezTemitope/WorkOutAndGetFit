@@ -2,6 +2,7 @@ import os
 
 import requests
 from django.http import JsonResponse
+from packaging.licenses import license_ref_allowed
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -76,6 +77,24 @@ def fitness_data(request):
     }
     try:
         response = requests.get(url, headers=headers)
+        response.raise_for_status()
+
+        return JsonResponse(response.json(), safe=False)
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+def verify_and_authenticate_user(request):
+    email = request.data.get('email')
+    otp = request.data.get('otp')
+    license_number = request.data.get('license_number')
+
+    if not license_number:
+        return Response({'detail': 'license number is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    try:
+        response = requests.get()
         response.raise_for_status()
 
         return JsonResponse(response.json(), safe=False)
