@@ -171,7 +171,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = [
 
     '127.0.0.1',
-    'lightanddark.up.railway.app',
+    'https://lightanddark.up.railway.app',
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://lightanddark.up.railway.app'
