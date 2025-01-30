@@ -30,7 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ENVIRONMENT == 'development':
+    DEBUG = True
+else:
+    DEBUG = False
 
 # ALLOWED_HOSTS = []
 
@@ -119,7 +122,7 @@ DATABASES = {
     }
 }
 
-POSTGRES_LOCALLY = True
+POSTGRES_LOCALLY = False
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DATABASES['default'] = dj_database_url.parse(os.getenv('DATABASE_URL'))
@@ -168,8 +171,11 @@ CORS_ALLOW_ALL_ORIGINS = True
 ALLOWED_HOSTS = [
 
     '127.0.0.1',
+    'lightanddark.up.railway.app',
 ]
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://lightanddark.up.railway.app'
+]
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8081',  # React Native app's URL
     'http://127.0.0.1:8000',  # Backend URL
