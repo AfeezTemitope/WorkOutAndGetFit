@@ -2,12 +2,12 @@ import os
 
 import requests
 from django.http import JsonResponse
-from packaging.licenses import license_ref_allowed
+from dotenv import load_dotenv
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
-from dotenv import load_dotenv
+
 from workoutApp.models import CustomUser
 from workoutApp.serializers import CreateUserSerializer
 
@@ -15,8 +15,6 @@ load_dotenv()
 
 
 # Create your views here.
-
-
 class CustomUserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CreateUserSerializer
@@ -92,11 +90,39 @@ def verify_and_authenticate_user(request):
     if not license_number:
         return Response({'detail': 'license number is required'}, status=status.HTTP_400_BAD_REQUEST)
 
-
     try:
-        response = requests.get()
+        response = requests.get(email, otp)
         response.raise_for_status()
 
         return JsonResponse(response.json(), safe=False)
     except requests.exceptions.RequestException as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+
+def get_user_transactions():
+    url = "https://api.paystack.co/v3/transactions"
+    headers = {
+        "X-api-key": os.getenv('_PAYSTACK_AUTHORIZATION_KEY')
+    }
+
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+
+        print(response.json())
+    except requests.exceptions.RequestException as e:
+        return Response({'error': str(e)}, status=status.HTTP_504_GATEWAY_TIMEOUT)
+
+
+def initialize_user_transaction():
+    urls = "https://api.paystack.co/v3/transactions/initialize"
+    headers = {
+        "X-api-key": os.getenv('_PAYSTACK_AUTHORIZATION_KEY')
+    }
+    try:
+        response = requests.get(urls, headers=headers)
+        response.raise_for_status()
+
+        print(response.json())
+    except requests.exceptions.RequestException as e:
+        return Response({'error': str(e)}, status=status.HTTP_502_BAD_GATEWAY)
