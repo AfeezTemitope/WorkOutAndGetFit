@@ -1,7 +1,7 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from workoutApp.views import CustomUserViewSet, fitness_data, OTPVerification, total_calories_burn_in_a_week, \
-    exercise_types_and_instructions
+    exercise_types_and_instructions, get_user_transactions, initialize_user_transaction
 from rest_framework_simplejwt import views as jwt_views
 from workoutApp.strava import *
 
@@ -22,4 +22,8 @@ urlpatterns = [
 
     path('exercise/', exercise_types_and_instructions, name='exercise_and_instructions'),
     path('workout/', total_calories_burn_in_a_week, name='calories_burn'),
+
+    path('user_transactions/', get_user_transactions, name='transactions'),
+
+    path('paystacks/initiate_transactions', initialize_user_transaction, name='initiate_transactions'),
 ]

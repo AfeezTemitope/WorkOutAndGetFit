@@ -4,7 +4,7 @@ from decimal import Decimal
 from django.core.mail import send_mail
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
-from workoutApp.models import Workout, Goals, Exercise, CustomUser, WorkoutType
+from workoutApp.models import Workout, Goals, Exercise, CustomUser, WorkoutType, Consultants
 
 
 class CreateUserSerializer(UserCreateSerializer):
@@ -58,5 +58,10 @@ class ExercisesSerializer(serializers.ModelSerializer):
         model = Exercise
         fields = '__all__'
 
+
+class ConsultantsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Consultants
+        fields = ['full_name', 'phone_number', 'field_specalisation', 'health_institution']
 
 

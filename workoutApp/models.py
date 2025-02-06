@@ -98,3 +98,20 @@ class AbstractUser(Customer):
         ('B', 'Basic')
     ]
     membership = models.CharField(max_length=10, choices=MEMBERSHIP_CHOICES)
+
+
+class Consultants:
+    full_name = models.CharField(max_length=100)
+    otp = models.EmailField(unique=True, blank=True)
+    phone_number = models.IntegerField(max_length=11, unique=True)
+    license_number = models.CharField(max_length=15)
+    field_specialisation = models.CharField(max_length=10, blank=True)
+    health_institution = models.CharField(max_length=20, blank=True)
+
+    def __init__(self, *args: Any, **kwargs: Any):
+        super().__init__(*args, **kwargs)
+
+
+class LiveSession(models.Model):
+    user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='sessions')
+    consultants = models.ForeignKey('workoutApp.Consultants', on_delete=models.CASCADE, related_name='livesessions')
