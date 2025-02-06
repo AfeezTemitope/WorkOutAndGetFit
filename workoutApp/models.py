@@ -88,7 +88,7 @@ class Goals(models.Model):
 # Represents user's access levels in the application
 class AbstractUser(Customer):
     MEMBERSHIP_CHOICES = [
-        ('P','Premium'),
+        ('P', 'Premium'),
         ('G', 'Gold'),
         ('B', 'Basic')
     ]
