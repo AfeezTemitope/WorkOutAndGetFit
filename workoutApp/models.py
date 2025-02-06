@@ -1,9 +1,8 @@
 import random
 from typing import Any
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from datetime import date
 from paystacks.customers import Customer
 
 
@@ -17,10 +16,6 @@ class CustomUser(AbstractUser):
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=5, decimal_places=2)
     otp = models.EmailField(unique=True, blank=True)
-
-    def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(*args, **kwargs)
-
 
     def __str__(self):
         return self.username
@@ -100,18 +95,41 @@ class AbstractUser(Customer):
     membership = models.CharField(max_length=10, choices=MEMBERSHIP_CHOICES)
 
 
-class Consultants:
+class Consultants(models.Model):
     full_name = models.CharField(max_length=100)
     otp = models.EmailField(unique=True, blank=True)
-    phone_number = models.IntegerField(max_length=11, unique=True)
+    phone_number = models.CharField(max_length=11, unique=True)
     license_number = models.CharField(max_length=15)
     field_specialisation = models.CharField(max_length=10, blank=True)
     health_institution = models.CharField(max_length=20, blank=True)
 
-    def __init__(self, *args: Any, **kwargs: Any):
-        super().__init__(*args, **kwargs)
+    def __str__(self):
+        return self.full_name
 
 
 class LiveSession(models.Model):
     user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='sessions')
-    consultants = models.ForeignKey('workoutApp.Consultants', on_delete=models.CASCADE, related_name='livesessions')
+    consultants = models.ForeignKey('workoutApp.Consultants', on_delete=models.CASCADE, related_name='livesessions')  # Make sure 'Consultants' is correctly referenced
+
+    def __str__(self):
+        return f"Session with {self.consultants.full_name} for {self.user.username}"
+
+
+class UserDistance(models.Model):
+    user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='distance')
+    date = models.DateField(default=date.today)
+    total_distance = models.FloatField(default=0.0)
+    last_location = models.JSONField(default=dict)
+
+    class Meta:
+        unique_together = ('user', 'date')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.date} - {self.total_distance} km'
+
+
+
+
+
+
+

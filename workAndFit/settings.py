@@ -181,10 +181,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://workoutandgetfit-production.up.railway.app'
 ]
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8081',  # React Native app's URL
+    'http://localhost:8081',
     'http://127.0.0.1:8000',
-    'https://workoutandgetfit-production.up.railway.app',# Backend URL
-
+    'https://workoutandgetfit-production.up.railway.app',
 ]
 
 SIMPLE_JWT = {

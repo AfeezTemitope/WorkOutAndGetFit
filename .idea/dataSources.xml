@@ -17,5 +17,12 @@
       <jdbc-url>jdbc:postgresql://ep-black-snowflake-a45zqo25-pooler.us-east-1.aws.neon.tech:5432/neondb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="railway@autorack.proxy.rlwy.net" uuid="b06aba89-9718-43f7-aba0-c7b69497b6dd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://autorack.proxy.rlwy.net:18261/railway</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

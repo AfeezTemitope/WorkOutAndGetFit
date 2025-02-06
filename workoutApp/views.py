@@ -1,14 +1,16 @@
 import os
-
+from datetime import date
+from geopy.distance import geodesic
 import requests
 from django.http import JsonResponse
 from dotenv import load_dotenv
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from workoutApp.models import CustomUser
+from workoutApp.models import CustomUser, UserDistance
 from workoutApp.serializers import CreateUserSerializer
 
 load_dotenv()
@@ -126,3 +128,30 @@ def initialize_user_transaction():
         print(response.json())
     except requests.exceptions.RequestException as e:
         return Response({'error': str(e)}, status=status.HTTP_502_BAD_GATEWAY)
+
+
+class TrackDistance(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        current_location = request.data.get('location')
+
+        if not current_location:
+            return Response({'error', 'location is required'}, status=400)
+
+        current_date = date.today()
+        user_distance, created = UserDistance.objects.get_or_create(user=user, date=current_date)
+
+        if user_distance.last_location:
+            last_location = user.distance.last_location
+            distance_covered = geodesic(last_location, current_location).kilometers
+        else:
+            distance_covered = 0
+
+
+        user_distance.total_distance += distance_covered
+        user_distance.last_location = current_location
+        user_distance.save()
+
+        return Response({'total_distance': user_distance.total_distance}, status=200)
