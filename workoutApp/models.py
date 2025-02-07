@@ -100,7 +100,7 @@ class AbstractUser(Customer):
     membership = models.CharField(max_length=10, choices=MEMBERSHIP_CHOICES)
 
 
-class Consultants:
+class Consultants(models.Model):
     full_name = models.CharField(max_length=100)
     otp = models.EmailField(unique=True, blank=True)
     phone_number = models.IntegerField(max_length=11, unique=True)
@@ -113,5 +113,5 @@ class Consultants:
 
 
 class LiveSession(models.Model):
-    user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='sessions')
-    consultants = models.ForeignKey('workoutApp.Consultants', on_delete=models.CASCADE, related_name='livesessions')
+    user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='live_sessions')
+    consultants = models.ForeignKey(Consultants, on_delete=models.CASCADE, related_name='livesessions')

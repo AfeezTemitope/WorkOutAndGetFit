@@ -6,7 +6,7 @@ from h11._abnf import method
 from rest_framework.templatetags.rest_framework import data
 
 from paystacks import version
-from paystacks.errors import InvalidDataError, InvalidMethodError
+from paystacks.errors import InvalidMethodError
 
 
 class BaseAPI(object):
