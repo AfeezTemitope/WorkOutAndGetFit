@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'rest_framework.authtoken',
     'workoutApp',
+    'paystacks',
     'rest_framework',
     'rest_framework_simplejwt',
     'djoser',
@@ -182,7 +183,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://workoutandgetfit-production.up.railway.app'
 ]
 CORS_ALLOWED_ORIGINS = [
-    os.environ.get('PORT_BIND'),
+    'http://(PORT_BIND)',   # Port bind for Render
+    
     'http://localhost:8081',  # React Native app's URL
     'http://127.0.0.1:8000',
     'https://workoutandgetfit-production.up.railway.app',# Backend URL
