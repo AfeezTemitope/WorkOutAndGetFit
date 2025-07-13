@@ -4,14 +4,13 @@ from decimal import Decimal
 from django.core.mail import send_mail
 from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer
-from workoutApp.models import Workout, Goals, Exercise, CustomUser, WorkoutType, Consultants
+from workoutApp.models import Workout, Goals, Exercise, CustomUser, WorkoutType, Consultants, UserDistance
 
 
 class CreateUserSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = CustomUser
         fields = ['first_name', 'last_name', 'username', 'age', 'gender', 'weight', 'height', 'email', 'password']
-
 
     def create(self, validated_data):
         user = CustomUser.objects.create_user(**validated_data)
@@ -62,6 +61,10 @@ class ExercisesSerializer(serializers.ModelSerializer):
 class ConsultantsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Consultants
-        fields = ['full_name', 'phone_number', 'field_specalisation', 'health_institution']
+        fields = ['full_name', 'phone_number', 'field_specialization', 'health_institution']
 
 
+class UserDistanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserDistance
+        fields = ['user', 'date', 'total_distance', 'last_location']
