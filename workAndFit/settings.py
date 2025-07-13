@@ -92,6 +92,7 @@ AUTH_USER_MODEL = 'workoutApp.CustomUser'
 STRAVA_AUTH_URL = "https://www.strava.com/oauth/authorize"
 STRAVA_REDIRECT_URI = 'http://localhost:8000/strava/callback'
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -181,6 +182,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://workoutandgetfit-production.up.railway.app'
 ]
 CORS_ALLOWED_ORIGINS = [
+    os.environ.get('PORT_BIND'),
     'http://localhost:8081',  # React Native app's URL
     'http://127.0.0.1:8000',
     'https://workoutandgetfit-production.up.railway.app',# Backend URL
