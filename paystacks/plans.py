@@ -4,7 +4,7 @@ from paystacks.baseapi import BaseAPI
 
 class Plan(BaseAPI):
 
-    def create(self, name, amount, interval, description=None, \
+    def create(self, name, amount, interval, description=None,
                send_invoices=False, send_sms=False, hosted_page=False, hosted_page_url=None, hosted_page_summary=None, currency=None):
         """
         Creates a new plan. Returns the plan details created
