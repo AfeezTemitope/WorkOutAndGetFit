@@ -176,6 +176,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 ALLOWED_HOSTS = [
 
+    '54.191.253.12',
+
     '127.0.0.1',
     'workoutandgetfit-production.up.railway.app',
 ]
