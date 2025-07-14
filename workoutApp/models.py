@@ -108,9 +108,6 @@ class Consultants(models.Model):
 
 
 class LiveSession(models.Model):
-
-    user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='live_sessions')
-    consultants = models.ForeignKey(Consultants, on_delete=models.CASCADE, related_name='livesessions')
     user = models.ForeignKey('workoutApp.CustomUser', on_delete=models.CASCADE, related_name='sessions')
     consultants = models.ForeignKey('workoutApp.Consultants', on_delete=models.CASCADE, related_name='livesessions')  # Make sure 'Consultants' is correctly referenced
 
@@ -129,5 +126,10 @@ class UserDistance(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.date} - {self.total_distance} km'
+
+
+
+
+
 
 
