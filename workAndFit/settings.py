@@ -178,6 +178,8 @@ ALLOWED_HOSTS = [
 
     '54.191.253.12',
 
+    'https://workoutandgetfit-1.onrender.com/',
+
     '127.0.0.1',
     'workoutandgetfit-production.up.railway.app',
 ]
