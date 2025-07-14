@@ -178,16 +178,19 @@ ALLOWED_HOSTS = [
 
     '54.191.253.12',
 
-    'https://workoutandgetfit-1.onrender.com',
+    'workoutandgetfit-1.onrender.com',
 
     '127.0.0.1',
     'workoutandgetfit-production.up.railway.app',
 ]
 CSRF_TRUSTED_ORIGINS = [
-    'https://workoutandgetfit-production.up.railway.app'
+    'https://workoutandgetfit-production.up.railway.app',
+
+    'https://workoutandgetfit-1.onrender.com'
 ]
+
 CORS_ALLOWED_ORIGINS = [
-    'https://workoutandgetfit-1.onrender.com',   # Port bind for Render
+    'https://workoutandgetfit-1.onrender.com',   # Render Backend URL
     
     'http://localhost:8081',  # React Native app's URL
     'http://127.0.0.1:8000',
