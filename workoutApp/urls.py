@@ -1,7 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from workoutApp.views import CustomUserViewSet, TrackDistance, fitness_data, OTPVerification, total_calories_burn_in_a_week, \
-    exercise_types_and_instructions, get_user_transactions, initialize_user_transaction
+from workoutApp.views import CustomUserViewSet, TrackDistance, fitness_data, OTPVerification, total_calories_burn_in_a_week, exercise_types_and_instructions, get_user_transactions, initialize_user_transaction
 from rest_framework_simplejwt import views as jwt_views
 from workoutApp.strava import *
 
