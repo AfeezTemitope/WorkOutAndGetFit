@@ -187,7 +187,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://workoutandgetfit-production.up.railway.app'
 ]
 CORS_ALLOWED_ORIGINS = [
-    'http://(PORT_BIND)',   # Port bind for Render
+    'https://workoutandgetfit-1.onrender.com',   # Port bind for Render
     
     'http://localhost:8081',  # React Native app's URL
     'http://127.0.0.1:8000',
